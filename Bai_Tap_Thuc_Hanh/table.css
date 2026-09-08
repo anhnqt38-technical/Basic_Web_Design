@@ -1,0 +1,52 @@
+.sen1 {
+    color: blue;
+    font-size: 25px;
+}
+.sen2 {
+    color:rgb(60, 177, 122);
+    font-size: 25px;
+}
+
+.header {
+    background-color: rgb(190, 190, 25);
+    font-size: 14px;
+}
+
+.row1 {
+    color:rgb(60, 122, 177);
+    font-size: 14px;
+}
+
+.row1:hover {
+    background-color: rgb(203, 225, 144);
+    color: white;
+}
+
+.row2 {
+    color:rgb(177, 60, 122);
+    font-size: 14px;
+}
+
+.row2:hover {
+    background-color: rgb(134, 245, 143);
+    color: white;
+}
+
+.row3 {
+    color:rgb(60, 177, 122);
+    font-size: 14px;
+}
+
+.row3:hover {
+    background-color: rgb(190, 166, 221);
+    color: white;
+}
+
+table {
+    margin: 0 auto;
+}
+
+img {
+    display: block;
+    margin: 0;
+}
