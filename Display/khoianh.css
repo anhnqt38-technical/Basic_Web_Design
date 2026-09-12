@@ -1,0 +1,26 @@
+.container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    gap: 10px;
+    margin: 10px auto;
+}
+
+.right , .left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;                                                                                    
+}
+
+.right img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.left img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
