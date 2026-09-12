@@ -1,0 +1,17 @@
+/* span {
+    color: red;  
+}
+
+span.highlight {
+    background-color: yellow;
+}
+
+span.highlight:hover {
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVTe-COYqgj4x3Nwq_wu86NtlTRfUJeK3rc-2WDhhQlQ&s=10');
+    color: white;
+} */
+
+p {
+    display: inline-block;
+    padding: 15px;
+}
