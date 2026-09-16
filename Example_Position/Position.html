@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="parent">
+        parent (relative)
+        <div class="child">Child (absolute)</div>
+        <div class="child1">Child (absolute)</div>
+    </div>
+</body>
+<style>
+    .parent {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        background-color: rgb(114, 114, 207);
+    }
+
+    .child {
+        position: absolute;
+        top:20px;
+        left:30px;
+        background-color: rgb(223, 111, 111);
+        width: 100px;
+        height: 100px;
+    }
+     .child1{
+        position: absolute;
+        top:20px;
+        left:150px;
+        background-color: rgb(191, 223, 111);
+        width: 100px;
+        height: 100px;
+     }
+</style>
+</html>
