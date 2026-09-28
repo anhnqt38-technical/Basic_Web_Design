@@ -1,0 +1,28 @@
+body {
+    padding:0px;
+    margin:0px;
+    box-sizing: border-box;
+    width:1200px ;
+}
+ul {
+    display: flex;
+    list-style: none;
+    width: 90%;
+    height: 60px;
+    margin: 10px auto;
+    background-color: rgb(48, 45, 45);
+    border-radius: 10px;
+
+}
+
+li {
+    font-size: 30px;
+    padding: 5px 20px;
+    margin: 10px 20px;
+    color: white;
+}
+
+.button {
+    background-color: red;
+    border-radius: 10px;
+}
