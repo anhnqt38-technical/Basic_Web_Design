@@ -41,7 +41,7 @@ function checkdiem() {
             xl = "Yếu";
     }
 
-    document.getElementById("diemTB").textContent = diemTB.toFixed(2);
+    document.getElementById("diemTB").textContent = diemTB.toFixed(2);  // số thực lấy sau 2 chữ số
     document.getElementById("diemTB").style.color = "red";
     document.getElementById("diemTB").style.fontSize = "30px";
     document.getElementById("xl").textContent = xl;
