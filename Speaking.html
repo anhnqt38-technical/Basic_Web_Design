@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Test - Unit 3: Websites (Speaking Online Test)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- JSZip & FileSaver để nén và tải tất cả file ghi âm -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .pulse-animation { animation: pulse 1.5s infinite; }
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="bg-indigo-600 p-2 rounded-lg text-white">
+          <i class="fa-solid fa-microphone-lines text-xl"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">MINI TEST – UNIT 3: WEBSITES</h1>
+          <p class="text-xs text-slate-400">Online Computer-Based Speaking Examination</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="text-right">
+          <span class="text-xs text-slate-400 block uppercase tracking-wider">Total Time</span>
+          <span id="total-timer" class="font-mono font-bold text-lg text-amber-400">20:00</span>
+        </div>
+        <button id="btn-mic-test" onclick="testMicrophone()" class="bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700 text-xs font-medium flex items-center gap-2">
+          <i class="fa-solid fa-plug text-emerald-400"></i> Check Mic
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- LEFT / MAIN CONTENT AREA -->
+    <div class="lg:col-span-8 space-y-6">
+
+      <!-- SECTION 0: GENERAL INSTRUCTIONS -->
+      <section id="section-instructions" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="border-b border-slate-100 pb-4 mb-4 flex justify-between items-center">
+          <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <i class="fa-solid fa-circle-info text-indigo-600"></i>
+            I. General Instructions
+          </h2>
+          <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-full">Overview</span>
+        </div>
+
+        <div class="prose prose-slate max-w-none text-sm text-slate-600 space-y-3">
+          <p class="font-semibold text-slate-800">Welcome to your Speaking Test! Please read the following instructions carefully before starting.</p>
+          <ol class="list-decimal pl-5 space-y-2">
+            <li><strong>Equipment Check:</strong> Ensure your microphone and internet connection are properly configured.</li>
+            <li><strong>Environment:</strong> Take the examination in a quiet room free from external distractions.</li>
+            <li><strong>Clarity:</strong> Respond clearly in English using full sentences with detailed explanations.</li>
+            <li><strong>Automated Recording:</strong> Audio responses are saved upon finishing each item.</li>
+            <li><strong>Pacing:</strong> Observe individual part durations. The test transitions automatically once time expires.</li>
+            <li><strong>Academic Integrity:</strong> External resources, translation tools, or notes are strictly prohibited.</li>
+            <li><strong>Submission:</strong> Complete all three parts before submitting your final exam to download your audio responses.</li>
+          </ol>
+        </div>
+
+        <!-- Structure Cards -->
+        <div class="grid grid-cols-3 gap-3 mt-6">
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center">
+            <span class="text-xs font-bold text-slate-500 uppercase block">Part 1</span>
+            <span class="text-sm font-semibold text-slate-800">Website Q&A</span>
+            <span class="text-xs text-indigo-600 block font-medium mt-1">7 Minutes</span>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center">
+            <span class="text-xs font-bold text-slate-500 uppercase block">Part 2</span>
+            <span class="text-sm font-semibold text-slate-800">Individual Talk</span>
+            <span class="text-xs text-indigo-600 block font-medium mt-1">3 Minutes</span>
+          </div>
+          <div class="bg-slate-50 border border-slate-200 p-3 rounded-lg text-center">
+            <span class="text-xs font-bold text-slate-500 uppercase block">Part 3</span>
+            <span class="text-sm font-semibold text-slate-800">Dashboard Q&A</span>
+            <span class="text-xs text-indigo-600 block font-medium mt-1">10 Minutes</span>
+          </div>
+        </div>
+
+        <button onclick="startPart(1)" class="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition">
+          Start Part 1 <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </section>
+
+      <!-- SECTION 1: PART 1 -->
+      <section id="section-part1" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Part 1 • Image-Based Q&A</span>
+            <h2 class="text-xl font-bold text-slate-900">Website Analysis</h2>
+          </div>
+          <span id="p1-timer" class="font-mono bg-amber-50 text-amber-700 border border-amber-200 px-3 py-1 rounded-lg font-bold text-sm">07:00</span>
+        </div>
+
+        <p class="text-sm text-slate-600 mb-4">Look at the website screenshot below. Answer the 5 questions in complete English sentences.</p>
+
+        <!-- Visual Display -->
+        <div class="relative bg-slate-100 rounded-lg overflow-hidden border border-slate-200 mb-6">
+          <img id="img-part1" src="https://i.postimg.cc/8zpYNHx8/1.png" alt="Shopee E-Commerce Screenshot" class="w-full h-auto object-cover max-h-96">
+          <button onclick="openModal('https://i.postimg.cc/8zpYNHx8/1.png')" class="absolute top-3 right-3 bg-slate-900/80 text-white text-xs px-2.5 py-1.5 rounded-md hover:bg-slate-900 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-expand"></i> Zoom View
+          </button>
+        </div>
+
+        <!-- Questions List -->
+        <div class="space-y-4">
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">1. What kind of website is it?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p1-q1" onclick="toggleRecord('p1-q1')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p1-q1" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p1-q1" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">2. What is the main purpose of this website?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p1-q2" onclick="toggleRecord('p1-q2')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p1-q2" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p1-q2" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">3. How often do you visit this website?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p1-q3" onclick="toggleRecord('p1-q3')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p1-q3" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p1-q3" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">4. What activities do you usually perform on this website?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p1-q4" onclick="toggleRecord('p1-q4')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p1-q4" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p1-q4" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">5. Do you like this website? Why or why not?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p1-q5" onclick="toggleRecord('p1-q5')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p1-q5" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p1-q5" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="startPart(2)" class="w-full mt-6 bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition">
+          Proceed to Part 2 <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </section>
+
+      <!-- SECTION 2: PART 2 -->
+      <section id="section-part2" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Part 2 • Individual Speaking</span>
+            <h2 class="text-xl font-bold text-slate-900">Topic Presentation</h2>
+          </div>
+          <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-full">3 Minutes Total</span>
+        </div>
+
+        <!-- Topic Card -->
+        <div class="bg-indigo-50/60 border border-indigo-100 rounded-xl p-5 mb-6">
+          <span class="text-xs font-bold text-indigo-800 uppercase block mb-1">Speaking Topic</span>
+          <h3 class="text-lg font-bold text-indigo-950 mb-3">"What is your favorite website?"</h3>
+          
+          <div class="text-xs text-indigo-900 space-y-1">
+            <p class="font-semibold">Suggested points to include:</p>
+            <ul class="list-disc pl-4 space-y-0.5">
+              <li>What the website is and what you use it for.</li>
+              <li>How frequently you visit this platform.</li>
+              <li>What specific features you appreciate most.</li>
+              <li>Why you would recommend it to other users.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Prep / Speaking Timer Display -->
+        <div class="border border-slate-200 rounded-xl p-6 text-center bg-slate-50 mb-6">
+          <div id="p2-prep-phase" class="space-y-3">
+            <span class="text-xs font-bold uppercase text-amber-600 tracking-wider">Preparation Time (1 Minute)</span>
+            <div id="p2-prep-timer" class="text-4xl font-mono font-bold text-slate-900">01:00</div>
+            <p class="text-xs text-slate-500">Organize your thoughts. Automatic recording begins when preparation ends.</p>
+            <button onclick="skipPrepAndStartP2()" class="bg-indigo-50 hover:bg-indigo-100 text-indigo-600 border border-indigo-200 text-xs px-3 py-1.5 rounded-lg font-medium transition">
+              Skip Prep & Start Recording Now
+            </button>
+          </div>
+
+          <div id="p2-speak-phase" class="hidden space-y-3">
+            <span class="text-xs font-bold uppercase text-rose-600 tracking-wider pulse-animation flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-circle text-xs"></i> Speaking Phase (Recording Active)
+            </span>
+            <div id="p2-speak-timer" class="text-4xl font-mono font-bold text-rose-600">02:00</div>
+            <p class="text-xs text-slate-500">Present your answer clearly. Recording stops automatically after 2 minutes.</p>
+            
+            <div class="flex justify-center items-center gap-3 pt-2">
+              <button id="btn-stop-p2-rec" onclick="stopPart2Recording()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-square"></i> Stop Recording Early
+              </button>
+            </div>
+            <div class="flex justify-center mt-3">
+              <audio id="audio-part2-topic" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+        </div>
+
+        <button id="btn-p2-next" onclick="proceedFromPart2()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition">
+          Proceed to Part 3 <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </section>
+
+      <!-- SECTION 3: PART 3 -->
+      <section id="section-part3" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Part 3 • Data Interpretation & Discussion</span>
+            <h2 class="text-xl font-bold text-slate-900">Dashboard Analysis</h2>
+          </div>
+          <span id="p3-timer" class="font-mono bg-amber-50 text-amber-700 border border-amber-200 px-3 py-1 rounded-lg font-bold text-sm">10:00</span>
+        </div>
+
+        <!-- Dashboard Image Display -->
+        <div class="relative bg-slate-900 rounded-lg overflow-hidden border border-slate-200 mb-6">
+          <img id="img-part3" src="https://i.postimg.cc/3NjLH4BK/2.png" alt="Analytics Dashboard" class="w-full h-auto object-cover">
+          <button onclick="openModal('https://i.postimg.cc/3NjLH4BK/2.png')" class="absolute top-3 right-3 bg-slate-900/80 text-white text-xs px-2.5 py-1.5 rounded-md hover:bg-slate-900 transition flex items-center gap-1.5">
+            <i class="fa-solid fa-expand"></i> Zoom Dashboard
+          </button>
+        </div>
+
+        <!-- Section A: Data Questions -->
+        <div class="space-y-4 mb-6">
+          <h3 class="font-bold text-slate-900 text-sm border-b border-slate-200 pb-2">Section A: Dashboard Data Questions</h3>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">1. What does the number mean?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p3-q1" onclick="toggleRecord('p3-q1')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p3-q1" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p3-q1" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">2. Which month has the highest number of new users?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p3-q2" onclick="toggleRecord('p3-q2')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p3-q2" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p3-q2" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">3. How many new users were there in September?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p3-q3" onclick="toggleRecord('p3-q3')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p3-q3" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p3-q3" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-2">4. Is this year's bounce rate higher than that of last year?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p3-q4" onclick="toggleRecord('p3-q4')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p3-q4" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p3-q4" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section B: Extended Questions -->
+        <div class="space-y-4">
+          <h3 class="font-bold text-slate-900 text-sm border-b border-slate-200 pb-2">Section B: Extended Discussion</h3>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-1">Question 1: What characteristic of a website is the most important?</p>
+            <p class="text-xs text-slate-500 mb-2">(e.g., Easy-to-navigate, Reliable, Informative, Well-designed)</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p3-ext1" onclick="toggleRecord('p3-ext1')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p3-ext1" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p3-ext1" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50">
+            <p class="font-semibold text-slate-800 text-sm mb-1">Question 2: As a programmer, what ONE feature can you code for your website to make it [the characteristic you mentioned]?</p>
+            <div class="flex items-center gap-3 flex-wrap">
+              <button id="rec-p3-ext2" onclick="toggleRecord('p3-ext2')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2">
+                <i class="fa-solid fa-microphone"></i> Record Answer
+              </button>
+              <span id="status-p3-ext2" class="text-xs text-slate-400">Not recorded</span>
+              <audio id="audio-p3-ext2" controls class="hidden h-8 text-xs"></audio>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="finishTest()" class="w-full mt-8 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition shadow-sm">
+          <i class="fa-solid fa-paper-plane"></i> Submit Final Test & Download Audio
+        </button>
+      </section>
+
+      <!-- SECTION 4: REVIEW & SUBMISSION -->
+      <section id="section-review" class="hidden bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="text-center space-y-2 mb-6">
+          <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-xl">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-900">Test Submitted Successfully!</h2>
+          <p class="text-sm text-slate-500">Your recordings have been processed and saved to your device.</p>
+          
+          <!-- Nút Download All ZIP -->
+          <div class="pt-2">
+            <button onclick="downloadAllAsZip()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2.5 rounded-lg text-sm transition shadow flex items-center gap-2 mx-auto">
+              <i class="fa-solid fa-file-zipper text-lg"></i> Download All Recordings (.ZIP)
+            </button>
+          </div>
+        </div>
+
+        <div id="review-list" class="space-y-3 mb-6">
+          <!-- Audio list generated via JS -->
+        </div>
+
+        <button onclick="location.reload()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 px-4 rounded-lg transition">
+          Take Another Test
+        </button>
+      </section>
+
+    </div>
+
+    <!-- RIGHT SIDEBAR: PROGRESS & HELP -->
+    <div class="lg:col-span-4 space-y-6">
+      
+      <!-- Progress Summary Widget -->
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <h3 class="font-bold text-slate-900 text-sm mb-3 flex items-center justify-between">
+          <span>Test Completion</span>
+          <span id="completion-rate" class="text-xs text-indigo-600">0%</span>
+        </h3>
+        <div class="w-full bg-slate-100 rounded-full h-2 mb-4">
+          <div id="progress-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between items-center py-1 border-b border-slate-100">
+            <span class="text-slate-600">Part 1 (Website Q&A)</span>
+            <span id="badge-p1" class="font-semibold text-slate-400">0 / 5</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-100">
+            <span class="text-slate-600">Part 2 (Individual Talk)</span>
+            <span id="badge-p2" class="font-semibold text-slate-400">Pending</span>
+          </div>
+          <div class="flex justify-between items-center py-1">
+            <span class="text-slate-600">Part 3 (Dashboard Q&A)</span>
+            <span id="badge-p3" class="font-semibold text-slate-400">0 / 6</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Navigation -->
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+        <h3 class="font-bold text-slate-900 text-sm mb-3">Sections</h3>
+        <div class="grid grid-cols-1 gap-2">
+          <button onclick="showSection('section-instructions')" class="text-left px-3 py-2 rounded-lg text-xs font-medium hover:bg-slate-50 transition border border-transparent">
+            General Instructions
+          </button>
+          <button onclick="showSection('section-part1')" class="text-left px-3 py-2 rounded-lg text-xs font-medium hover:bg-slate-50 transition border border-transparent">
+            Part 1: Website Questions
+          </button>
+          <button onclick="showSection('section-part2')" class="text-left px-3 py-2 rounded-lg text-xs font-medium hover:bg-slate-50 transition border border-transparent">
+            Part 2: Individual Speaking
+          </button>
+          <button onclick="showSection('section-part3')" class="text-left px-3 py-2 rounded-lg text-xs font-medium hover:bg-slate-50 transition border border-transparent">
+            Part 3: Dashboard Analysis
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- IMAGE ZOOM MODAL -->
+  <div id="image-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="relative max-w-5xl w-full bg-white rounded-xl overflow-hidden shadow-2xl">
+      <div class="flex justify-between items-center p-3 border-b border-slate-200 bg-slate-50">
+        <span class="text-xs font-bold text-slate-700">Visual Material - Enlarged View</span>
+        <button onclick="closeModal()" class="text-slate-500 hover:text-slate-800 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div class="p-2 max-h-[80vh] overflow-auto flex justify-center">
+        <img id="modal-img" src="" alt="Enlarged Visual" class="max-w-full h-auto rounded">
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // State Tracking
+    const audioBlobs = {}; // Holds actual Audio Blobs for download
+    let mediaRecorder = null;
+    let audioChunks = [];
+    let currentRecordingId = null;
+    let totalTime = 1200; // 20 mins
+
+    let p2PrepInterval = null;
+    let p2SpeakInterval = null;
+
+    // Mapping tên hiển thị / tên tệp xuất ra
+    const labelMap = {
+      'p1-q1': 'Part1_Q1',
+      'p1-q2': 'Part1_Q2',
+      'p1-q3': 'Part1_Q3',
+      'p1-q4': 'Part1_Q4',
+      'p1-q5': 'Part1_Q5',
+      'part2-topic': 'Part2_Individual_Talk',
+      'p3-q1': 'Part3_Data_Q1',
+      'p3-q2': 'Part3_Data_Q2',
+      'p3-q3': 'Part3_Data_Q3',
+      'p3-q4': 'Part3_Data_Q4',
+      'p3-ext1': 'Part3_Discussion_Q1',
+      'p3-ext2': 'Part3_Discussion_Q2'
+    };
+
+    // Initialize Global Timer
+    setInterval(() => {
+      if (totalTime > 0) {
+        totalTime--;
+        const mins = Math.floor(totalTime / 60).toString().padStart(2, '0');
+        const secs = (totalTime % 60).toString().padStart(2, '0');
+        document.getElementById('total-timer').innerText = `${mins}:${secs}`;
+      }
+    }, 1000);
+
+    // Modal view
+    function openModal(src) {
+      document.getElementById('modal-img').src = src;
+      document.getElementById('image-modal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('image-modal').classList.add('hidden');
+    }
+
+    // Mic Test
+    async function testMicrophone() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        alert("Microphone is working properly!");
+        stream.getTracks().forEach(track => track.stop());
+      } catch (err) {
+        alert("Microphone access failed: " + err.message);
+      }
+    }
+
+    // Section Switching
+    function showSection(sectionId) {
+      ['section-instructions', 'section-part1', 'section-part2', 'section-part3', 'section-review'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    function startPart(partNumber) {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+      }
+
+      if (partNumber === 1) {
+        showSection('section-part1');
+      } else if (partNumber === 2) {
+        showSection('section-part2');
+        runPart2Timers();
+      } else if (partNumber === 3) {
+        showSection('section-part3');
+      }
+    }
+
+    // Real Audio Recording Implementation for Parts 1 & 3
+    async function toggleRecord(id) {
+      const btn = document.getElementById(`rec-${id}`);
+      const status = document.getElementById(`status-${id}`);
+      const audioElement = document.getElementById(`audio-${id}`);
+
+      if (currentRecordingId === id && mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        btn.innerHTML = `<i class="fa-solid fa-rotate-right"></i> Re-record`;
+        btn.className = 'bg-slate-700 hover:bg-slate-800 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2';
+        status.innerText = 'Recording saved ✓';
+        status.className = 'text-xs text-emerald-600 font-medium';
+        currentRecordingId = null;
+        return;
+      }
+
+      if (currentRecordingId && currentRecordingId !== id) {
+        alert("Please stop the active recording first!");
+        return;
+      }
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+
+        mediaRecorder.ondataavailable = event => {
+          if (event.data.size > 0) audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          audioBlobs[id] = audioBlob;
+          
+          if (audioElement) {
+            const audioUrl = URL.createObjectURL(audioBlob);
+            audioElement.src = audioUrl;
+            audioElement.classList.remove('hidden');
+          }
+
+          stream.getTracks().forEach(track => track.stop());
+          updateProgress();
+        };
+
+        mediaRecorder.start();
+        currentRecordingId = id;
+
+        btn.innerHTML = `<i class="fa-solid fa-square"></i> Stop Recording`;
+        btn.className = 'bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-2 pulse-animation';
+        status.innerText = 'Recording in progress...';
+        status.className = 'text-xs text-rose-600 font-medium';
+
+      } catch (err) {
+        alert('Microphone access denied or error occurred: ' + err.message);
+      }
+    }
+
+    // --- PART 2 AUTOMATED WORKFLOW & TIMER MANAGEMENT ---
+
+    function runPart2Timers() {
+      clearInterval(p2PrepInterval);
+      clearInterval(p2SpeakInterval);
+
+      let prepTime = 60;
+      const prepDisplay = document.getElementById('p2-prep-timer');
+      
+      document.getElementById('p2-prep-phase').classList.remove('hidden');
+      document.getElementById('p2-speak-phase').classList.add('hidden');
+
+      p2PrepInterval = setInterval(() => {
+        prepTime--;
+        const mins = Math.floor(prepTime / 60).toString().padStart(2, '0');
+        const secs = (prepTime % 60).toString().padStart(2, '0');
+        if (prepDisplay) prepDisplay.innerText = `${mins}:${secs}`;
+
+        if (prepTime <= 0) {
+          clearInterval(p2PrepInterval);
+          startPart2SpeakingPhase();
+        }
+      }, 1000);
+    }
+
+    function skipPrepAndStartP2() {
+      clearInterval(p2PrepInterval);
+      startPart2SpeakingPhase();
+    }
+
+    async function startPart2SpeakingPhase() {
+      document.getElementById('p2-prep-phase').classList.add('hidden');
+      document.getElementById('p2-speak-phase').classList.remove('hidden');
+      
+      await startPart2Recording();
+
+      let speakTime = 120;
+      const speakDisplay = document.getElementById('p2-speak-timer');
+      
+      p2SpeakInterval = setInterval(() => {
+        speakTime--;
+        const sMins = Math.floor(speakTime / 60).toString().padStart(2, '0');
+        const sSecs = (speakTime % 60).toString().padStart(2, '0');
+        if (speakDisplay) speakDisplay.innerText = `${sMins}:${sSecs}`;
+
+        if (speakTime <= 0) {
+          clearInterval(p2SpeakInterval);
+          stopPart2Recording();
+        }
+      }, 1000);
+    }
+
+    async function startPart2Recording() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioChunks = [];
+        mediaRecorder = new MediaRecorder(stream);
+        currentRecordingId = 'part2-topic';
+
+        mediaRecorder.ondataavailable = event => {
+          if (event.data.size > 0) audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+          audioBlobs['part2-topic'] = audioBlob;
+          
+          const audioEl = document.getElementById('audio-part2-topic');
+          if (audioEl) {
+            audioEl.src = URL.createObjectURL(audioBlob);
+            audioEl.classList.remove('hidden');
+          }
+
+          stream.getTracks().forEach(track => track.stop());
+          currentRecordingId = null;
+          updateProgress();
+        };
+
+        mediaRecorder.start();
+      } catch (err) {
+        alert("Mic Error in Part 2: " + err.message);
+      }
+    }
+
+    function stopPart2Recording() {
+      clearInterval(p2SpeakInterval);
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+      }
+    }
+
+    function proceedFromPart2() {
+      stopPart2Recording();
+      startPart(3);
+    }
+
+    // Progress updates
+    function updateProgress() {
+      const p1Keys = ['p1-q1', 'p1-q2', 'p1-q3', 'p1-q4', 'p1-q5'];
+      const p3Keys = ['p3-q1', 'p3-q2', 'p3-q3', 'p3-q4', 'p3-ext1', 'p3-ext2'];
+
+      const p1Done = p1Keys.filter(k => audioBlobs[k]).length;
+      const p2Done = audioBlobs['part2-topic'] ? 1 : 0;
+      const p3Done = p3Keys.filter(k => audioBlobs[k]).length;
+
+      document.getElementById('badge-p1').innerText = `${p1Done} / 5`;
+      document.getElementById('badge-p2').innerText = p2Done ? 'Completed ✓' : 'Pending';
+      document.getElementById('badge-p3').innerText = `${p3Done} / 6`;
+
+      const totalRecorded = p1Done + p2Done + p3Done;
+      const totalQuestions = 12; // 5 + 1 + 6
+      const percent = Math.round((totalRecorded / totalQuestions) * 100);
+
+      document.getElementById('completion-rate').innerText = `${percent}%`;
+      document.getElementById('progress-bar').style.width = `${percent}%`;
+    }
+
+    // Tải lẻ từng file âm thanh
+    function downloadSingle(id) {
+      const blob = audioBlobs[id];
+      if (!blob) return;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${labelMap[id] || id}.webm`;
+      a.click();
+    }
+
+    // TẢI TẤT CẢ FILE NÉN TRONG 1 FILE ZIP
+    function downloadAllAsZip() {
+      const keys = Object.keys(audioBlobs);
+      if (keys.length === 0) {
+        alert("No recordings found to download!");
+        return;
+      }
+
+      const zip = new JSZip();
+      
+      keys.forEach(id => {
+        const fileName = `${labelMap[id] || id}.webm`;
+        zip.file(fileName, audioBlobs[id]);
+      });
+
+      zip.generateAsync({ type: "blob" }).then(content => {
+        saveAs(content, "Speaking_Test_Answers.zip");
+      });
+    }
+
+    // Submit & Finish
+    function finishTest() {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+      }
+
+      showSection('section-review');
+
+      const reviewList = document.getElementById('review-list');
+      reviewList.innerHTML = '';
+
+      const allKeys = [
+        'p1-q1', 'p1-q2', 'p1-q3', 'p1-q4', 'p1-q5',
+        'part2-topic',
+        'p3-q1', 'p3-q2', 'p3-q3', 'p3-q4', 'p3-ext1', 'p3-ext2'
+      ];
+
+      allKeys.forEach(id => {
+        const item = document.createElement('div');
+        item.className = 'p-3 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-between gap-4';
+
+        const name = labelMap[id] || id;
+        const hasBlob = !!audioBlobs[id];
+
+        if (hasBlob) {
+          const audioUrl = URL.createObjectURL(audioBlobs[id]);
+          item.innerHTML = `
+            <div>
+              <span class="font-semibold text-xs text-slate-800 block">${name}</span>
+              <span class="text-[10px] text-emerald-600 font-medium">Recorded ✓</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <audio src="${audioUrl}" controls class="h-8 text-xs"></audio>
+              <button onclick="downloadSingle('${id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs px-3 py-1.5 rounded-md flex items-center gap-1 transition">
+                <i class="fa-solid fa-download"></i> Tải file này
+              </button>
+            </div>
+          `;
+        } else {
+          item.innerHTML = `
+            <div>
+              <span class="font-semibold text-xs text-slate-800 block">${name}</span>
+              <span class="text-[10px] text-slate-400">Not recorded</span>
+            </div>
+            <span class="text-xs text-slate-400 italic">Skipped</span>
+          `;
+        }
+
+        reviewList.appendChild(item);
+      });
+    }
+  </script>
+</body>
+</html>
