@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function chuvi(cr, cd) {
+            return (cr + cd) * 2;
+        }
+
+        function dientich(cr, cd) {
+            return cr * cd;
+        }
+
+        var cr = parseInt(prompt("Nhập chiều dài: "));
+        var cd = parseInt(prompt("Nhập chiều rộng: "));
+
+        console.log("Chu vi: " + chuvi(cr, cd));
+        console.log("Diện tích: " + dientich(cr, cd));
+        
+        alert("Chu vi: " + chuvi(cr, cd));
+        alert("Diện tích: " + dientich(cr, cd));
+    </script>
+</body>
+</html>
