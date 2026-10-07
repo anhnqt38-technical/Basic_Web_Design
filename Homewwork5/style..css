@@ -1,0 +1,168 @@
+:root {
+    --bg-soft: #eef6ff;
+    --bg-main: #f8fbff;
+    --primary: #5b7cff;
+    --primary-dark: #3d5cf5;
+    --accent: #7dd3fc;
+    --success: #34d399;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --line: #dfeaf9;
+    --card: #ffffff;
+    --shadow: rgba(91, 124, 255, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #eef4ff 0%, #ecfeff 45%, #fdf2f8 100%);
+    color: var(--text);
+}
+
+.page {
+    width: min(1100px, calc(100% - 32px));
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 28px;
+    box-shadow: 0 22px 60px var(--shadow);
+    padding: 28px 32px 32px;
+}
+
+.header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
+}
+
+.title {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.05em;
+}
+
+.product-form {
+    margin-bottom: 30px;
+}
+
+.input-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 18px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: #f9fbff;
+    font-size: 1rem;
+    color: var(--text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: rgba(91, 124, 255, 0.7);
+    box-shadow: 0 0 0 4px rgba(91, 124, 255, 0.12);
+    background: #fff;
+}
+
+.button-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+.sell {
+    background: linear-gradient(135deg, var(--success), #2ec4b6);
+    color: white;
+    box-shadow: 0 12px 24px rgba(52, 211, 153, 0.3);
+}
+
+.cancel {
+    background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+    color: #374151;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 760px;
+}
+
+.table thead {
+    background: linear-gradient(135deg, #eff6ff, #eefcfb);
+}
+
+.table th,
+.table td {
+    padding: 16px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+.table th {
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.table tbody tr:nth-child(even) {
+    background: rgba(91, 124, 255, 0.03);
+}
+
+.table tbody tr:hover {
+    background: rgba(125, 211, 252, 0.12);
+}
