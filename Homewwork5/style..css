@@ -1,18 +1,4 @@
-:root {
-    --bg-soft: #eef6ff;
-    --bg-main: #f8fbff;
-    --primary: #5b7cff;
-    --primary-dark: #3d5cf5;
-    --accent: #7dd3fc;
-    --success: #34d399;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --line: #dfeaf9;
-    --card: #ffffff;
-    --shadow: rgba(91, 124, 255, 0.12);
-}
-
-* {
+﻿* {
     box-sizing: border-box;
 }
 
@@ -23,46 +9,41 @@ body {
     align-items: center;
     justify-content: center;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #eef4ff 0%, #ecfeff 45%, #fdf2f8 100%);
-    color: var(--text);
+    background: #f3f5f9;
+    color: #1f2937;
+    padding: 24px 16px;
 }
 
 .page {
-    width: min(1100px, calc(100% - 32px));
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 28px;
-    box-shadow: 0 22px 60px var(--shadow);
-    padding: 28px 32px 32px;
+    width: min(1000px, 100%);
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    padding: 28px 30px;
 }
 
 .header {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 16px;
-    padding-bottom: 18px;
-    border-bottom: 1px solid var(--line);
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
     margin-bottom: 24px;
 }
 
 .title {
     margin: 0;
-    font-size: clamp(2rem, 3vw, 2.8rem);
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.05em;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
 }
 
 .product-form {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .input-row {
     display: grid;
     grid-template-columns: repeat(2, minmax(220px, 1fr));
-    gap: 20px;
+    gap: 18px;
     margin-bottom: 18px;
 }
 
@@ -74,95 +55,73 @@ body {
 
 label {
     font-size: 0.95rem;
-    color: var(--text);
     font-weight: 600;
+    color: #374151;
 }
 
 input {
     width: 100%;
-    padding: 14px 16px;
-    border-radius: 14px;
-    border: 1px solid var(--line);
-    background: #f9fbff;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
     font-size: 1rem;
-    color: var(--text);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    color: #111827;
+    background: #fff;
 }
 
 input:focus {
     outline: none;
-    border-color: rgba(91, 124, 255, 0.7);
-    box-shadow: 0 0 0 4px rgba(91, 124, 255, 0.12);
-    background: #fff;
+    border-color: #3b82f6;
 }
 
 .button-row {
     display: flex;
-    gap: 14px;
-    margin-top: 24px;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 button {
     border: none;
-    border-radius: 12px;
-    padding: 14px 24px;
-    font-weight: 700;
-    font-size: 1rem;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 0.98rem;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-}
-
-button:hover {
-    transform: translateY(-1px);
 }
 
 .sell {
-    background: linear-gradient(135deg, var(--success), #2ec4b6);
+    background: #2563eb;
     color: white;
-    box-shadow: 0 12px 24px rgba(52, 211, 153, 0.3);
 }
 
 .cancel {
-    background: linear-gradient(135deg, #e5e7eb, #d1d5db);
-    color: #374151;
+    background: #e5e7eb;
+    color: #111827;
 }
 
 .table-wrapper {
-    overflow-x: auto;
-    border-radius: 18px;
-    border: 1px solid var(--line);
-    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
 .table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 760px;
-}
-
-.table thead {
-    background: linear-gradient(135deg, #eff6ff, #eefcfb);
+    min-width: 700px;
 }
 
 .table th,
 .table td {
-    padding: 16px 18px;
+    padding: 14px 16px;
     text-align: left;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .table th {
-    color: var(--primary-dark);
+    font-size: 0.8rem;
     font-weight: 700;
-    font-size: 0.9rem;
+    color: #374151;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
-.table tbody tr:nth-child(even) {
-    background: rgba(91, 124, 255, 0.03);
-}
-
-.table tbody tr:hover {
-    background: rgba(125, 211, 252, 0.12);
+    letter-spacing: 0.05em;
 }
