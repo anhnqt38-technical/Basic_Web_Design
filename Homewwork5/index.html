@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Product</title>
     <link rel="stylesheet" href="style..css">
+    <script src=product.js></script>
 </head>
 <body>
     <div class="page">
@@ -14,16 +15,16 @@
             </div>
         </header>
 
-        <form class="product-form">
+        <form class="product-form" name="frm">
             <div class="input-row">
                 <div class="field">
                     <label for="pro-name">Product Name</label>
-                    <input type="text" name="name" id="pro-name" placeholder="Quần âu">
+                    <input type="text" name="pname" id="pro-name" placeholder="Quần âu">
                 </div>
 
                 <div class="field">
                     <label for="quantity">Quantity</label>
-                    <input type="number" name="quantity" id="quantity" placeholder="20">
+                    <input type="number" name="qty" id="quantity" placeholder="20">
                 </div>
             </div>
 
@@ -35,19 +36,18 @@
 
                 <div class="field">
                     <label for="discount">Discount</label>
-                    <input type="number" name="discount" id="discount" placeholder="10">
+                    <input type="number" name="dc" id="discount" placeholder="10">
                 </div>
             </div>
 
             <div class="button-row">
-                <button class="sell" type="submit">Sell</button>
+                <button class="sell" onclick="sell()" type="button">Sell</button>
                 <button class="cancel" type="button">Cancel</button>
             </div>
         </form>
 
         <div class="table-wrapper">
-            <table class="table">
-                <thead>
+            <table class="table" id="tbl">
                     <tr>
                         <th>ID</th>
                         <th>Product Name</th>
@@ -56,28 +56,11 @@
                         <th>Discount</th>
                         <th>Subtotal</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Áo Thun</td>
-                        <td>12</td>
-                        <td>$30000</td>
-                        <td>10%</td>
-                        <td>$324000</td>
-                    </tr>
 
-                    <tr>
-                        <td>2</td>
-                        <td>Quần âu</td>
-                        <td>10</td>
-                        <td>$400000</td>
-                        <td>10%</td>
-                        <td>$7200000</td>
-                    </tr>
-                </tbody>
             </table>
+
         </div>
+
     </div>
 </body>
 </html>
