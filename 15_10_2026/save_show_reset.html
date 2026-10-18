@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="save_show_reset.js"></script>
+</head>
+<body>
+    <form>
+        Fullname Customer:
+        <input type="text" id="name">
+        <br>
+
+        Id:
+        <input type="number" id="id">
+        <br>
+
+        Product Name:
+        <input type="text" id="pname">
+        <br>
+        
+        Quantity:
+        <input type="number" id="qty">
+        <br>
+
+        Price:
+        <input type="number" id="price">
+        <br>
+
+        <button type="button" onclick="save()">Save</button>
+        <button type="button" onclick="show()">Show</button>
+        <button type="button" onclick="reset()">Reset</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Auto Increment</th>
+                <th>Fullname Customer</th>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="tbl"></tbody>
+    </table>
+</body>
+</html>
